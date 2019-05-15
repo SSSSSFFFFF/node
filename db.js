@@ -1,7 +1,7 @@
 //引入mongodb模块，获得客户端对象
 var MongoClient = require('mongodb').MongoClient;
 //连接字符串
-var DB_CONN_STR = 'http://139.196.102.62:27017/';    
+var DB_CONN_STR = 'http://localhost:27017/';    
 
 //定义函数表达式，用于操作数据库并返回结果
 // var insertData = function(db, callback) {  

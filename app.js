@@ -20,25 +20,25 @@ num:444,
 age:12
 },
 {
-    data:456,
-    num:678,
-    age:13
-    }];
+data:456,
+num:678,
+age:13
+}];
 
-    //写个接口123
-    app.get('/123',function(req,res){
-    res.status(200),
-    res.json(questions)
-    });
+//写个接口123
+app.get('/123',function(req,res){
+res.status(200),
+res.json(questions)
+});
 
-    //配置服务端口
-    var server = app.listen(8000, function () {
-      console.log("server",server.address())
-    var host = server.address().address;
+//配置服务端口
+var server = app.listen(8000, function () {
+console.log("server",server.address())
+var host = server.address().address;
 
-     var port = server.address().port;
+var port = server.address().port;
 
-        console.log('Example app listening at http://139.196.102.62:8000/123');
-    })
+   console.log('Example app listening at http://139.196.102.62:8000/123');
+})
 
 
