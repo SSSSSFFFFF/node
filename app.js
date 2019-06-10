@@ -33,12 +33,8 @@ res.json(questions)
 
 //配置服务端口
 var server = app.listen(8000, function () {
-console.log("server",server.address())
-var host = server.address().address;
-
-var port = server.address().port;
-
-   console.log('Example app listening at http://139.196.102.62:8000/123');
+   console.log('放在服务器的地址 http://139.196.102.62:8000/123');
+   console.log('本地开发地址 http://localhost:8000/123')
 })
 
 
