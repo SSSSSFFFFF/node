@@ -11,13 +11,20 @@
 </body>
 <script src="./jquery.js"></script>
 <script>
+var datas = {
+    a: '1',
+    b: '2',
+}
 $.ajax({
-    type: "POST",
-    url: "http://139.196.102.62",
-    data: "some words",
-    dataType: "dataType",
+    type: "post",
+    url: "http://139.196.102.62:8000/user",
+    data: JSON.stringify(datas),
+    contentType : 'application/json',
     success: function (res) {
         console.log(res)
+    },
+    error:function(err){
+        console.log(err)
     }
 });
 </script>

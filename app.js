@@ -1,37 +1,21 @@
 var express = require('express');
 var app = express();
 
-//设置跨域访问
-app.all('*', function (req, res, next) {
-   res.header("Access-Control-Allow-Origin", "*");
-   // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-   res.header("X-Powered-By", ' 3.2.1');
-   res.header("Content-Type", "application/json;charset=utf-8");
-   next();
-});
 
+var dbName = 'sf',
+   collectionName = '';
+//设置允许跨域访问该服务.
+app.all('*', function (req, res, next) {
+   res.header('Access-Control-Allow-Origin', '*');
+   res.header('Access-Control-Allow-Headers', 'Content-Type');
+   res.header('Access-Control-Allow-Methods', '*');
+   res.header('Content-Type', 'application/json;charset=utf-8');
+   next();
+ });
 
 
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://139.196.102.62:27017/";
-
-MongoClient.connect(url, {
-   useNewUrlParser: true
-}, function (err, db) {
-   if (err) throw err;
-   console.log('数据库已创建');
-   var dbase = db.db("runoob");
-   dbase.createCollection('site', function (err, res) {
-      if (err) throw err;
-      console.log("创建集合!");
-      db.close();
-   });
-});
-
-
-
-
 
 var questions = [{
       data: 213,
@@ -54,13 +38,36 @@ app.get('/123', function (req, res) {
 // POST method route
 app.post("/user", (req, res) => {
    //接收客户端请求主体数据
-   req.on('data', (data) => {
-      console.log(data);
+    
+   req.on('data', (buf,err) => { 
+      
+      try{
+         var obj = JSON.parse(buf.toString())
+         buf = JSON.parse(buf.toString());
+         console.log('buf',buf)
+         MongoClient.connect(url, {
+            useNewUrlParser: true
+         }, function (err, db) {
+            if (err) throw err;
+            console.log('created database');
+            var dbase = db.db(dbName);
+            dbase.createCollection('site', function (err, res) {
+               if (err) throw err;
+               console.log("created collection!");
+               db.close();
+            });
+         });
+         res.send(buf);
+      } catch(err){
+         console.error(err)
+      }
    });
+
 });
+
 
 //配置服务端口
 var server = app.listen(8000, function () {
-   console.log('放在服务器的地址 http://139.196.102.62:8000/123');
-   console.log('本地开发地址 http://localhost:8000/123')
+   console.log('server address http://139.196.102.62:8000/123');
+   console.log('local address http://localhost:8000/123')
 })
